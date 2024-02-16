@@ -1,28 +1,36 @@
+let images = [];
+let imageNames = [
+  'PacManB.png', 'PacManBc.png', 'PacManG.png', 'PacManGc.png',
+  'PacManR.png', 'PacManRc.png', 'PacManY.png', 'PacManYc.png'
+];
+
+function preload() {
+  for (let i = 0; i < imageNames.length; i++) {
+    let img = loadImage('https://cuvner.github.io/arPoster/images/' + imageNames[i]);
+    images.push(img);
+  }
+}
+
 let h = 0
 
 function setup() {
-	createCanvas(895, 1280, document.getElementById('canvas-ar')) // poster aspect
+	createCanvas(1912, 1912, document.getElementById('canvas-ar')) // poster aspect
 	pixelDensity(1) // prevent 200+ PPI lag
-	colorMode(HSL)
-	textSize(100);
+	frameRate(10)
+
 }
 
 function draw() {
-	background(255);
-	let x = noise(frameCount * .007) * width
-	let y = noise(frameCount * .005) * height
-	let fc = h + sin(frameCount * .1) * 40
-
-	fill(fc, 50, 50)
-	noStroke()
-
-	translate(x, y)
-	rotate(radians(frameCount * 1.1))
-	text("Andreia's snotty",0,0)
-	//rect(0, 0, 300, 3)
+	for(let i = 0; i < width; i += 100) {
+		for(let j = 0; j < height; j += 100) {
+			let r = random(images);
+			
+			image(r, i, j);
+		}
+	}
 }
 
 function mousePressed() {
-	clear()
-	h = random(360)
+	// clear()
+	// h = random(360)
 }
